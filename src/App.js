@@ -1,4 +1,4 @@
-// commit inicial
+// commit inicial 1
 import React from 'react';
 import logo from './trivia.png';
 import './App.css';
