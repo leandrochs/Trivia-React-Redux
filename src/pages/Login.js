@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import { playerLogin } from '../actions';
+import { getUserToken } from '../services/triviaAPI';
+import saveToLocalStorage from '../services/localStorage';
+import { saveToken } from '../actions/token';
 
 export class Login extends Component {
   constructor(props) {
@@ -21,9 +24,15 @@ export class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  handleLogin() {
-    const { dispatch } = this.props;
-    dispatch(playerLogin(this.state));
+  async handleLogin() {
+    const { dispatch, history } = this.props;
+    const token = await getUserToken();
+    this.setState({ token }, () => {
+      dispatch(playerLogin(this.state));
+      dispatch(saveToken(token));
+      saveToLocalStorage('token', token);
+      history.push('/game');
+    });
   }
 
   isValidForm() {
@@ -54,6 +63,16 @@ export class Login extends Component {
           onClick={ this.handleLogin }
           type="button"
           value="Play"
+        />
+        <p
+          data-testid="settings-title"
+        >
+          Configurações
+        </p>
+        <input
+          data-testid="btn-settings"
+          type="button"
+          value="btn-settings"
         />
       </form>
     );
