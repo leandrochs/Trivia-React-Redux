@@ -4,23 +4,22 @@ import AnswearButtons from './AnswearButtons';
 
 class QuestionDisplay extends React.Component {
   render() {
-    const { results } = this.props;
-    const questionPosition = 0;
+    const { result } = this.props;
 
     return (
       <div>
         <div data-testid="question-category">
-          { results[questionPosition].category }
+          { result.category }
         </div>
-        <div data-testid="question-text">{ results[questionPosition].question }</div>
-        <AnswearButtons results={ results } />
+        <div data-testid="question-text">{ result.question }</div>
+        <AnswearButtons result={ result } />
       </div>
     );
   }
 }
 
 QuestionDisplay.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.object),
+  result: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
 
 export default QuestionDisplay;
