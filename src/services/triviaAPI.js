@@ -8,20 +8,25 @@ export const getUserToken = () => fetch(TOKEN_API)
   .then((response) => response.json())
   .then((data) => data.token);
 
-export async function getQuestions() {
+async function verifyToken() {
   let token = JSON.parse(localStorage.getItem('token'));
-  let TRIVIA_URL = `https://opentdb.com/api.php?amount=5&token=${token}`;
+  const TRIVIA_URL = `https://opentdb.com/api.php?amount=5&token=${token}`;
 
-  const verifyToken = await fetch(TRIVIA_URL)
+  const getTrivia = await fetch(TRIVIA_URL)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 
-  if (verifyToken.response_code === expiredTokenCode) {
-    token = JSON.parse(getUserToken());
+  if (getTrivia.response_code === expiredTokenCode) {
+    token = await getUserToken();
     saveToLocalStorage('token', token);
   }
 
-  TRIVIA_URL = `https://opentdb.com/api.php?amount=5&token=${token}`;
+  return token;
+}
+
+export async function getQuestions() {
+  const token = await verifyToken();
+  const TRIVIA_URL = `https://opentdb.com/api.php?amount=5&token=${token}`;
 
   return fetch(TRIVIA_URL)
     .then((response) => response.json())
