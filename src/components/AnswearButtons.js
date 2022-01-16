@@ -25,12 +25,12 @@ class AnswearButtons extends React.Component {
   }
 
   randomAnswers() {
-    const { results } = this.props;
+    const { result } = this.props;
 
     const {
       incorrect_answers: incorrectAnswers,
       correct_answer: correctAnswer,
-    } = results[0];
+    } = result;
 
     const answers = [correctAnswer, ...incorrectAnswers];
 
@@ -40,7 +40,7 @@ class AnswearButtons extends React.Component {
         <button
           type="button"
           key={ index }
-          className={ (index === 0) ? 'correct-answer' : 'wrong-answer' }
+          className={ (index === 0) ? 'correct-answer bt' : 'wrong-answer bt' }
           data-testid={ (index === 0) ? 'correct-answer' : `wrong-answer-${index - 1}` }
           onClick={ this.onClick }
         >
