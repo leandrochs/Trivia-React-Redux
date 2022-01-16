@@ -11,15 +11,22 @@ class AnswearButtons extends React.Component {
     };
 
     this.randomAnswers = this.randomAnswers.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
     this.randomAnswers();
   }
 
+  onClick() {
+    document.querySelector('.correct-answer').style.border = '3px solid rgb(6, 240, 15)';
+    document.querySelectorAll('.wrong-answer')
+      .forEach((button) => { button.style.border = '3px solid rgb(255, 0, 0)'; });
+  }
+
   randomAnswers() {
     const { results } = this.props;
-    console.log(results);
+
     const {
       incorrect_answers: incorrectAnswers,
       correct_answer: correctAnswer,
@@ -33,7 +40,9 @@ class AnswearButtons extends React.Component {
         <button
           type="button"
           key={ index }
+          className={ (index === 0) ? 'correct-answer' : 'wrong-answer' }
           data-testid={ (index === 0) ? 'correct-answer' : `wrong-answer-${index - 1}` }
+          onClick={ this.onClick }
         >
           { answer }
         </button>),
