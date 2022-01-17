@@ -28,11 +28,12 @@ class Game extends React.Component {
 
   render() {
     const { results, showNextButton, position } = this.props;
+    const NMAX = 4;
 
     return (
       <div>
         <div>
-          { (position === 4) ? <Redirect to="/feedback" /> : null }
+          { (position === NMAX) ? <Redirect to="/feedback" /> : null }
         </div>
         <div>
           {

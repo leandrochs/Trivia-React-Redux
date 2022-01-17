@@ -33,6 +33,7 @@ class AnswearButtons extends React.Component {
 
   onClick(result) {
     this.printBorder();
+    console.log(result);
 
     const { dispatch } = this.props;
     dispatch(assertions());
