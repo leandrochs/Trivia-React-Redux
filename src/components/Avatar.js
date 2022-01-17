@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
+import saveToLocalStorage from '../services/saveToLocalStorage';
+import getFromLocalStorage from '../services/getFromLocalStorage';
 
 class Avatar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { emailHash: '' };
+    this.state = { picture: '' };
   }
 
   componentDidMount() {
@@ -15,26 +17,38 @@ class Avatar extends Component {
   }
 
   calculateEmailHash() {
-    const { gravatarEmail } = this.props;
+    const { name, gravatarEmail } = this.props;
     const emailHash = md5(gravatarEmail).toString();
-    this.setState({ emailHash });
+    const picture = `https://www.gravatar.com/avatar/${emailHash}`;
+    const ranking = getFromLocalStorage('ranking');
+    const newRanking = [
+      ...ranking
+        .filter((player) => player.name !== name || player.picture !== picture),
+    ];
+    newRanking.push({ name, picture, score: 0 });
+    saveToLocalStorage('ranking', newRanking);
+    this.setState({ picture });
   }
 
   render() {
-    const { emailHash } = this.state;
+    const { picture } = this.state;
     return (
       <img
         alt="userAvatar"
         data-testid="header-profile-picture"
-        src={ `https://www.gravatar.com/avatar/${emailHash}` }
+        src={ picture }
       />
     );
   }
 }
 
-const mapStateToProps = ({ player: { gravatarEmail } }) => ({ gravatarEmail });
+const mapStateToProps = ({ player: { name, gravatarEmail } }) => ({
+  name,
+  gravatarEmail,
+});
 
 Avatar.propTypes = {
+  name: PropTypes.string,
   gravatarEmail: PropTypes.string,
 }.isRequired;
 

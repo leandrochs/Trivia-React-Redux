@@ -1,4 +1,4 @@
-import saveToLocalStorage from './localStorage';
+import saveToLocalStorage from './saveToLocalStorage';
 
 const expiredTokenCode = 3;
 
