@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { questionsResponse } from '../actions/questions';
 import QuestionDisplay from '../components/QuestionDisplay';
 import { getQuestions } from '../services/triviaAPI';
@@ -29,16 +30,26 @@ class Game extends React.Component {
     const { results, showNextButton, position } = this.props;
 
     return (
-      (results.length > 0)
-        ? (
-          <section>
-            <Header />
-            <QuestionDisplay result={ results[position] } />
-            { (showNextButton) ? <NextButton /> : <Timer /> }
-          </section>
-        )
-        : (<div>Carregando</div>)
-
+      <div>
+        <div>
+          { (position === 4) ? <Redirect to="/feedback" /> : null }
+        </div>
+        <div>
+          {
+            (results.length > 0)
+              ? (
+                <section>
+                  <Header />
+                  <QuestionDisplay result={ results[position] } />
+                  { (showNextButton) ? <NextButton /> : <Timer /> }
+                </section>
+              )
+              : (
+                <div>Carregando</div>
+              )
+          }
+        </div>
+      </div>
     );
   }
 }
