@@ -5,6 +5,7 @@ import { questionsResponse } from '../actions/questions';
 import QuestionDisplay from '../components/QuestionDisplay';
 import { getQuestions } from '../services/triviaAPI';
 import Timer from '../components/Timer';
+import Header from '../components/Header';
 
 class Game extends React.Component {
   constructor(props) {
@@ -30,11 +31,13 @@ class Game extends React.Component {
       (results.length > 0)
         ? (
           <section>
+            <Header />
             <QuestionDisplay result={ results[0] } />
             <Timer />
           </section>
         )
         : (<div>Carregando</div>)
+
     );
   }
 }
