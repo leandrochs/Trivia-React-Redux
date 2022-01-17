@@ -11,7 +11,8 @@ const questionsReducer = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       questions: payload,
     };
-  default: return state;
+  default:
+    return state;
   }
 };
 

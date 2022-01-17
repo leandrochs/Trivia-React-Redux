@@ -1,3 +1,4 @@
+// Numero da questao
 export const QUESTION_POSITION = 'QUESTION_POSITION';
 
 export const questionPosition = (payload) => ({

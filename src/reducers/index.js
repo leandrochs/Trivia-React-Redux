@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import playerReducer from './player';
 import positionReducer from './questionPosition';
-import questionsReducer from './questions';
 import tokenReducer from './token';
+import questionsReducer from './questions';
 
 const rootReducer = combineReducers({
   player: playerReducer,

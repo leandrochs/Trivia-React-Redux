@@ -7,7 +7,8 @@ const positionReducer = (state = INITIAL_STATE, { type }) => {
   case QUESTION_POSITION:
     return (parseInt(state, 10) + 1);
 
-  default: return state;
+  default:
+    return state;
   }
 };
 
