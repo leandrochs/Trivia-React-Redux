@@ -33,11 +33,17 @@ class AnswearButtons extends React.Component {
 
   onClick(result) {
     this.printBorder();
-    console.log(result);
+    const timer = document.querySelector('.timer').innerHTML;
+    const MIN_POINT = 10;
+
+    const { difficulty } = result;
+    const level = { hard: 3, medium: 2, easy: 1 };
+
+    const points = (MIN_POINT + (timer * level[difficulty]));
 
     const { dispatch } = this.props;
     dispatch(assertions());
-    dispatch(scoreAction({ score: 100 }));
+    dispatch(scoreAction({ score: points }));
   }
 
   onClick2() {
