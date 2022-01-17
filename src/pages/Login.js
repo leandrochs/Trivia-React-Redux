@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import { playerLogin } from '../actions';
@@ -64,16 +65,10 @@ export class Login extends Component {
           type="button"
           value="Play"
         />
-        <p
-          data-testid="settings-title"
-        >
-          Configurações
-        </p>
-        <input
-          data-testid="btn-settings"
-          type="button"
-          value="btn-settings"
-        />
+        <Link to="/configuration">
+          <button data-testid="btn-settings" type="button">Configurações</button>
+        </Link>
+
       </form>
     );
   }
