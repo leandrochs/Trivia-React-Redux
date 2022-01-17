@@ -28,28 +28,31 @@ class Game extends React.Component {
 
   render() {
     const { results, showNextButton, position } = this.props;
-    const NMAX = 4;
+    const NMAX = 5;
 
     return (
       <div>
-        <div>
-          { (position === NMAX) ? <Redirect to="/feedback" /> : null }
-        </div>
-        <div>
-          {
-            (results.length > 0)
-              ? (
-                <section>
-                  <Header />
-                  <QuestionDisplay result={ results[position] } />
-                  { (showNextButton) ? <NextButton /> : <Timer /> }
-                </section>
-              )
-              : (
-                <div>Carregando</div>
-              )
-          }
-        </div>
+        {
+          (position === NMAX)
+            ? <Redirect to="/feedback" />
+            : (
+              <div>
+                {
+                  (results.length > 0)
+                    ? (
+                      <section>
+                        <Header />
+                        <QuestionDisplay result={ results[position] } />
+                        { (showNextButton) ? <NextButton /> : <Timer /> }
+                      </section>
+                    )
+                    : (
+                      <div>Carregando</div>
+                    )
+                }
+              </div>
+            )
+        }
       </div>
     );
   }
