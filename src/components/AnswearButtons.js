@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showNextButton } from '../actions/showNextButton';
+import { assertions } from '../actions/assertions';
+import { scoreAction } from '../actions/score';
 
 const RAN_INT = 100;
 
@@ -29,16 +31,16 @@ class AnswearButtons extends React.Component {
     }
   }
 
-  onClick() {
+  onClick(result) {
     this.printBorder();
 
-    console.log('certo');
+    const { dispatch } = this.props;
+    dispatch(assertions());
+    dispatch(scoreAction({ score: 100 }));
   }
 
   onClick2() {
     this.printBorder();
-
-    console.log('errado');
   }
 
   printBorder() {
@@ -52,6 +54,7 @@ class AnswearButtons extends React.Component {
 
   randomAnswers() {
     const { result } = this.props;
+    console.log(result);
 
     const {
       incorrect_answers: incorrectAnswers,
@@ -68,7 +71,7 @@ class AnswearButtons extends React.Component {
           key={ index }
           className={ (index === 0) ? 'correct-answer bt' : 'wrong-answer bt' }
           data-testid={ (index === 0) ? 'correct-answer' : `wrong-answer-${index - 1}` }
-          onClick={ (index === 0) ? this.onClick : this.onClick2 }
+          onClick={ (index === 0) ? () => this.onClick(result) : this.onClick2 }
         >
           { answer }
         </button>),
@@ -94,6 +97,7 @@ class AnswearButtons extends React.Component {
 
 AnswearButtons.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object),
+  dispatch: PropTypes.func,
 }.isRequired;
 
 export default connect()(AnswearButtons);
