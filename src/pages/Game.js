@@ -6,6 +6,7 @@ import QuestionDisplay from '../components/QuestionDisplay';
 import { getQuestions } from '../services/triviaAPI';
 import Timer from '../components/Timer';
 import Header from '../components/Header';
+import NextButton from '../components/NextButton';
 
 class Game extends React.Component {
   constructor(props) {
@@ -25,15 +26,15 @@ class Game extends React.Component {
   }
 
   render() {
-    const { results } = this.props;
+    const { results, showNextButton, position } = this.props;
 
     return (
       (results.length > 0)
         ? (
           <section>
             <Header />
-            <QuestionDisplay result={ results[0] } />
-            <Timer />
+            <QuestionDisplay result={ results[position] } />
+            { (showNextButton) ? <NextButton /> : <Timer /> }
           </section>
         )
         : (<div>Carregando</div>)
@@ -48,6 +49,8 @@ Game.propTypes = {
 
 const mapStateToProps = (state) => ({
   results: state.responseApi.questions,
+  showNextButton: state.showNextButton,
+  position: state.position,
 });
 
 export default connect(mapStateToProps)(Game);
