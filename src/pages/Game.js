@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { questionsResponse } from '../actions/questions';
 import QuestionDisplay from '../components/QuestionDisplay';
 import { getQuestions } from '../services/triviaAPI';
 import Timer from '../components/Timer';
 import Header from '../components/Header';
+import NextButton from '../components/NextButton';
 
 class Game extends React.Component {
   constructor(props) {
@@ -25,19 +27,30 @@ class Game extends React.Component {
   }
 
   render() {
-    const { results } = this.props;
+    const { results, showNextButton, position } = this.props;
+    const NMAX = 4;
 
     return (
-      (results.length > 0)
-        ? (
-          <section>
-            <Header />
-            <QuestionDisplay result={ results[0] } />
-            <Timer />
-          </section>
-        )
-        : (<div>Carregando</div>)
-
+      <div>
+        <div>
+          { (position === NMAX) ? <Redirect to="/feedback" /> : null }
+        </div>
+        <div>
+          {
+            (results.length > 0)
+              ? (
+                <section>
+                  <Header />
+                  <QuestionDisplay result={ results[position] } />
+                  { (showNextButton) ? <NextButton /> : <Timer /> }
+                </section>
+              )
+              : (
+                <div>Carregando</div>
+              )
+          }
+        </div>
+      </div>
     );
   }
 }
@@ -48,6 +61,8 @@ Game.propTypes = {
 
 const mapStateToProps = (state) => ({
   results: state.responseApi.questions,
+  showNextButton: state.showNextButton,
+  position: state.position,
 });
 
 export default connect(mapStateToProps)(Game);

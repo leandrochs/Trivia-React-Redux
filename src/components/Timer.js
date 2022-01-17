@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { questionPosition } from '../actions/questionPosition';
+import { showNextButton } from '../actions/showNextButton';
 
 const SECONDS = 1000;
 const TIME_LIMIT = 30;
@@ -24,6 +24,9 @@ class Timer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.seconds >= TIME_LIMIT) {
+      const { dispatch } = this.props;
+      dispatch(showNextButton(true));
+
       document.querySelectorAll('.bt')
         .forEach((bt) => {
           bt.disabled = true;
@@ -32,23 +35,8 @@ class Timer extends React.Component {
   }
 
   render() {
-    const { dispatch } = this.props;
     const { seconds } = this.state;
-    return (
-      <section>
-        {
-          (seconds < TIME_LIMIT)
-            ? (<div>{seconds}</div>)
-            : (
-              <button
-                type="button"
-                onClick={ () => dispatch(questionPosition()) }
-              >
-                Next
-              </button>)
-        }
-      </section>
-    );
+    return <div>{seconds}</div>;
   }
 }
 
