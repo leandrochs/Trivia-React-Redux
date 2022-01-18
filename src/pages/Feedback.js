@@ -18,7 +18,7 @@ class Feedback extends Component {
         {assertions < CORRECT_ANSWER && (
           <p data-testid="feedback-text">Could be better...</p>
         )}
-        {assertions < CORRECT_ANSWER && (
+        {assertions >= CORRECT_ANSWER && (
           <p data-testid="feedback-text">Well Done!</p>
         )}
       </div>

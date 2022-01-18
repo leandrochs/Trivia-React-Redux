@@ -16,4 +16,3 @@ export default function App() {
     </Switch>
   );
 }
-// Teste Pós problema Pr
