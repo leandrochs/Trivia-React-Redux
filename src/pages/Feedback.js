@@ -7,6 +7,7 @@ class Feedback extends Component {
   constructor(props) {
     super(props);
     this.playAgain = this.playAgain.bind(this);
+    this.goToRanking = this.goToRanking.bind(this);
   }
 
   playAgain() {

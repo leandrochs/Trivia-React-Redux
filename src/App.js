@@ -6,7 +6,6 @@ import Game from './pages/Game';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
 import Configuration from './pages/Configuration';
-// import Ranking from './pages/ranking';
 
 export default function App() {
   return (

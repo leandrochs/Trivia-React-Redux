@@ -1,9 +1,13 @@
 import React from 'react';
+import ButtonToLogin from '../components/ButtonToLogin';
 
 class Ranking extends React.Component {
   render() {
     return (
-      <h1 data-testid="ranking-title">Ranking</h1>
+      <div>
+        <h2 data-testid="ranking-title">RANKING</h2>
+        <ButtonToLogin />
+      </div>
     );
   }
 }
