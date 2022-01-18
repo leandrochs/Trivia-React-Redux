@@ -5,7 +5,7 @@ import Avatar from '../components/Avatar';
 
 class Feedback extends Component {
   render() {
-    const { name, score, assertions } = this.props;
+    const { name, score = 0, assertions } = this.props;
     const CORRECT_ANSWER = 3;
 
     return (
@@ -21,6 +21,8 @@ class Feedback extends Component {
         {assertions >= CORRECT_ANSWER && (
           <p data-testid="feedback-text">Well Done!</p>
         )}
+        <p data-testid="feedback-total-score">{ score }</p>
+        <p data-testid="feedback-total-question">{ assertions }</p>
       </div>
     );
   }
