@@ -4,6 +4,17 @@ import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 
 class Feedback extends Component {
+  constructor(props) {
+    super(props);
+    this.playAgain = this.playAgain.bind(this);
+  }
+
+  playAgain() {
+    const { history } = this.props;
+
+    history.push('/');
+  }
+
   render() {
     const { name, score = 0, assertions } = this.props;
     const CORRECT_ANSWER = 3;
@@ -23,6 +34,9 @@ class Feedback extends Component {
         )}
         <p data-testid="feedback-total-score">{ score }</p>
         <p data-testid="feedback-total-question">{ assertions }</p>
+        <button data-testid="btn-play-again" type="button" onClick={ this.playAgain }>
+          Play Again
+        </button>
       </div>
     );
   }
