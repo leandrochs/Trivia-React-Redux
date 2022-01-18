@@ -4,8 +4,8 @@ import { SCORE } from '../actions/score';
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '0',
-  score: '0',
+  assertions: 0,
+  score: 0,
   gravatarEmail: '',
 };
 
